@@ -9,7 +9,7 @@ int main() {
     scanf("%d", &input);
     int max_iter;
     printf("Podaj maksymalną liczbę iteracji!\n");
-    scanf("%d", max_iter);
+    scanf("%d", &max_iter);
     
     int* steps = malloc(sizeof(int));
     int amount = test_collatz_convergence(input, max_iter, &steps);

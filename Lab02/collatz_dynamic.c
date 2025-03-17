@@ -4,13 +4,13 @@
 
 int main() {
     
-    void* handle = dlopen("libcollatz.so", RTLD_LAZY);
+    void* handle = dlopen("./libcollatz.so", RTLD_LAZY);
     if(handle == NULL) {
         printf("Błąd z ładowaniem biblioteki!\n");
         return 0;
     }
     int (*lib_fun)(int, int, int**);
-    lib_fun = (int (*)())dlsym(handle,"test_collatz_convergence");
+    lib_fun = (int (*)(int, int, int**))dlsym(handle,"test_collatz_convergence");
     if(dlerror() != NULL){
         printf("Błąd z ładowaniem funkcji!\n");
         return 0;

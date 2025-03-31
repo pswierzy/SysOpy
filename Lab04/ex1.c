@@ -2,13 +2,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-int main() {
-    int argv;
-    scanf("%d", &argv);
+int main(int argc, char*argv[]) {
+    int arg = atoi(argv[1]);
     pid_t child_pit;
 
-    for(int i=0; i<argv; i++) {
+    for(int i=0; i<arg; i++) {
         child_pit = fork();
 
         if(child_pit == 0) {
@@ -18,8 +18,8 @@ int main() {
         }
     }
     int status;
-    waitpid(child_pit, &status, 0);
-    printf("%d\n", argv);
+    while(waitpid(child_pit, &status, 0) != -1);
+    printf("%d\n", arg);
     
     return 0;
 }

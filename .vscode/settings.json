@@ -3,6 +3,7 @@
     "*.sqlbook": "sql",
     "*.ndjson": "jsonl",
     "*.dbclient-js": "javascript",
-    "unistd.h": "c"
+    "unistd.h": "c",
+    "stat.h": "c"
   }
 }

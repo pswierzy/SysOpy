@@ -12,16 +12,26 @@ int main() {
     printf("Podaj przedział całkowania (a b): ");
     scanf("%lf %lf", &a, &b);
 
-    mkfifo("przedial_a_b", 0666);
-    mkfifo("wynik_calki", 0666);
+    if (access("/tmp/przedzial", F_OK) == -1){
+        if(mkfifo("/tmp/przedzial", 0666) == -1) {
+            perror("mkfifo");
+            exit(-1);
+        }
+    }
+    if (access("/tmp/wynik", F_OK) == -1){
+        if(mkfifo("/tmp/wynik", 0666) == -1) {
+            perror("mkfifo");
+            exit(-1);
+        }
+    }
 
-    int to_fd = open("przedial_a_b", O_WRONLY);
+    int to_fd = open("/tmp/przedzial", O_WRONLY);
     write(to_fd, &a, sizeof(a));
     write(to_fd, &b, sizeof(b));
     close(to_fd);
 
     double res;
-    int from_fd = open("wynik_calki", O_RDONLY);
+    int from_fd = open("/tmp/wynik", O_RDONLY);
     read(from_fd, &res, sizeof(res));
     close(from_fd);
 

@@ -15,4 +15,4 @@ fifo_integral_calc: fifo_integral_calc.c
 	$(CC) $(CFLAGS) fifo_integral_calc.c -o fifo_integral_calc
 
 clean: 
-	rm integral fifo_integral_sender fifo_integral_calc przedial_a_b wynik_calki
+	rm integral fifo_integral_sender fifo_integral_calc /tmp/przedzial /tmp/wynik

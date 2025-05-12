@@ -48,7 +48,7 @@ int main() {
 
         if (reply.type == MSG_ERR) {
             printf("Błąd w połączeniu do serwera: %s\n", reply.text);
-            sleep(1);
+            sleep(5);
         }
     }
 

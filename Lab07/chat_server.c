@@ -4,7 +4,6 @@ user users[MAX_USERS];
 int user_count = 0;
 int running = 1;
 
-
 int main() {
 
     mq_unlink(SERVER_QUEUE_NAME);
@@ -48,7 +47,7 @@ int main() {
             }
 
             if (user_count >= MAX_USERS) {
-                fprintf(stderr, "Za dużo userów!\n");
+                printf("User %d próbuje się połączyć! Za dużo userów!\n", msg.user_id);
 
                 message reply = { .type = MSG_ERR, .text = "Za dużo userów!" };
                 mq_send(user_q, (char*)&reply, sizeof(reply), 0);

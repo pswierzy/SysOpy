@@ -4,9 +4,9 @@
 #include <unistd.h>
 #include <time.h>
 
-#define MAX_WAITING_PATIENTS 10
-#define MAX_MEDICINE 20
-#define RAND_SEED 11
+#define MAX_WAITING_PATIENTS 3
+#define MAX_MEDICINE 6
+#define RAND_SEED 23
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond_doctor = PTHREAD_COND_INITIALIZER;
@@ -70,7 +70,7 @@ void* pharmacist_thread(void* arg) {
     sleep(delay);
 
     pthread_mutex_lock(&mutex);
-    if(medicine_stock >= MAX_WAITING_PATIENTS) {
+    while(medicine_stock >= MAX_WAITING_PATIENTS) {
         printf("[%ld] - Farmaceuta(%d): Czekam na opróżnienie apteczki\n", time(NULL), id);
         pthread_cond_wait(&cond_medicine, &mutex);
     }
@@ -104,7 +104,6 @@ void* doctor_thread(void* arg) {
         if (served_patients == total_patients) {
             printf("[%ld] - Lekarz: wszyscy pacjenci obsluzeni. Koncze prace na dzisiaj\n", time(NULL));
             pthread_cond_broadcast(&cond_medicine);
-            pthread_cond_broadcast(&cond_pharma_wait);
                    
             pthread_mutex_unlock(&mutex);
             break;

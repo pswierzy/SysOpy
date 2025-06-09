@@ -59,6 +59,7 @@ void* handle_client(void* arg) {
     int sock = *(int*)arg;
     char buffer[BUFFER_SIZE];
     char name[MAX_NAME];
+    memset(name, 0, MAX_NAME);
     read(sock, name, MAX_NAME);
 
     pthread_mutex_lock(&clients_mutex);
